@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sajmonoriginal.discord_unleashed.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinMinecraftServer",
+    "Mixin_ServerPlayerEntity",
+    "Mixin_ServerPlayNetworkHandler",
+    "Mixin_ServerLoginNetworkHandler"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
