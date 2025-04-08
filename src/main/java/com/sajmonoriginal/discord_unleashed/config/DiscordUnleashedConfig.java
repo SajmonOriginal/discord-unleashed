@@ -18,11 +18,11 @@ public class DiscordUnleashedConfig {
             .create();
 
     public static boolean discord_enable = false;
-    public static String discord_token = "SUPER SECRET TOKEN";
-    public static String discord_channel = "CHANNEL ID";
-    public static String discord_serverpfp_url = "https://i.imgur.com/dJUId0O.png";
-    public static String discord_servername = "Server";
-    public static String discord_webhook_url = "WEBHOOK URL";
+    public static String discord_token = "SUPER-SECRET-TOKEN";
+    public static String discord_channel = "CHANNEL-ID";
+    public static String discord_serverpfp_url = "https://i.imgur.com/B1QXfMt.png";
+    public static String discord_servername = "SERVER-NAME";
+    public static String discord_webhook_url = "WEBHOOK-URL";
 
     public static void load() {
         File file = getFilePath();
