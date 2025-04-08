@@ -51,7 +51,6 @@ public class ServerHelper {
                 }
             }
 
-            DiscordUnleashedMod.LOGGER.info("Sent message to all players: " + message);
         } catch (Exception e) {
             DiscordUnleashedMod.LOGGER.info("Error broadcasting message: " + e.toString());
         }

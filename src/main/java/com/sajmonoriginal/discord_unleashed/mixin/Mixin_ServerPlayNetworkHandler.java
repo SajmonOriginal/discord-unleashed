@@ -30,19 +30,14 @@ public class Mixin_ServerPlayNetworkHandler {
         return null;
     }
 
-    @Inject(method = "method_833", at = @At("HEAD"))
-    private void onDisconnect(String reason, CallbackInfo ci) {
-        DiscordUnleashedMod.LOGGER.info("Mixin hook: method_833 called. Reason: " + reason);
-
-        if (!DiscordUnleashedConfig.discord_enable) return;
-
+    @Inject(method = "method_1473", at = @At("HEAD"))
+    private void onDisconnect(String reason, Object[] args, CallbackInfo ci) {
         class_69 player = getPlayer((ServerPlayNetworkHandler)(Object)this);
         if (player != null) {
-            DiscordUnleashedMod.LOGGER.info("Sending disconnect embed to Discord for: " + player.name);
+            DiscordUnleashedMod.LOGGER.info("Disconnect via method_1473: " + reason);
             DiscordChatRelay.sendJoinLeaveMessage(player.name, false);
         }
     }
-
 
     @Inject(method = "method_1431", at = @At("HEAD"))
     private void onChat(class_340 packet, CallbackInfo ci) {
