@@ -9,6 +9,11 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+// Configuration for including dependencies in the JAR
+configurations {
+    include
+}
+
 loom {
     gluedMinecraftJar()
     customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
@@ -16,9 +21,15 @@ loom {
 }
 
 repositories {
+    mavenCentral()
+    maven { url = "https://jitpack.io" }
     maven {
         name = 'Babric'
         url = 'https://maven.glass-launcher.net/babric'
+    }
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
     }
 }
 
@@ -27,8 +38,21 @@ dependencies {
     mappings "babric:barn:${project.yarn_mappings}:v2"
     modImplementation "babric:fabric-loader:${project.loader_version}"
 
+    // Discord dependencies - also include them in the JAR
+    implementation "net.dv8tion:JDA:5.0.0-beta.13"
+    include "net.dv8tion:JDA:5.0.0-beta.13"
+    implementation "club.minnced:discord-webhooks:0.8.4"
+    include "club.minnced:discord-webhooks:0.8.4"
+    implementation "com.google.code.gson:gson:2.8.9"
+    include "com.google.code.gson:gson:2.8.9"
+
+    // Logging and utilities
     implementation "org.slf4j:slf4j-api:1.8.0-beta4"
+    include "org.slf4j:slf4j-api:1.8.0-beta4"
     implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
+    include "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
+    implementation 'com.google.guava:guava:30.0-jre'
+    include 'com.google.guava:guava:30.0-jre'
 }
 
 processResources {
@@ -40,9 +64,6 @@ processResources {
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
 
@@ -50,6 +71,9 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
     }
+    // Include all dependencies marked with 'include'
+    from(configurations.include.collect { it.isDirectory() ? it : zipTree(it) })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // configure the maven publication
@@ -60,11 +84,7 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
+        // Add repositories to publish to here if needed
     }
 }
