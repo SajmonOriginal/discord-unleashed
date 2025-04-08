@@ -31,7 +31,7 @@
    - [Discord Bot/Webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) credentials.
 
 2. **Download:**
-   - Grab the latest release [here](https://github.com/yourusername/discord-unleashed/releases).
+   - Grab the latest release [here](https://github.com/SajmonOriginal/discord-unleashed/releases).
 
 3. **Setup:**
    - Place the mod JAR file into your `mods` folder.
